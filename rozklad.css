@@ -41,6 +41,10 @@ ul a{
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
+ul a:hover{
+    background-color: darkolivegreen;
+}
+
 div.rozklad{
     background-color: aliceblue;
     margin: 10px;
