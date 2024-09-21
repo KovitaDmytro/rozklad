@@ -27,7 +27,7 @@ nav{
 ul{
     display: flex; 
     margin: auto;
-    width: 85%;
+    width: 60%;
     align-items: center;
     justify-content: space-between;
 
