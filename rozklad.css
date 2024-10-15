@@ -27,7 +27,7 @@ nav{
 ul{
     display: flex; 
     margin: auto;
-    width: 80%;
+    width: 85%;
     align-items: center;
     justify-content: space-between;
 
@@ -43,6 +43,12 @@ ul a{
 
 ul a:hover{
     background-color: darkolivegreen;
+}
+
+h2{
+    color: rgb(0, 0, 0);
+    background-color: aqua;
+    text-align: center;
 }
 
 div.rozklad{
