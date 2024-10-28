@@ -33,4 +33,31 @@ let months = ["січня", "лютого", "березня", "квітня", "�
 let dayOfMonth = date.getDate();
 let month = months[date.getMonth()]; // Отримуємо назву місяця
 
-document.getElementById("date").innerHTML = day + ', ' +dayOfMonth + ' ' + month   ;
+document.getElementById("date").innerHTML = day + ', ' +dayOfMonth + ' ' + month ;
+
+let today = new Date();
+let oneJan = new Date(today.getFullYear(), 0, 1);
+let numberOfDays = Math.floor((today - oneJan) / (24 * 60 * 60 * 1000));
+let week = Math.ceil((numberOfDays + 1) / 7);
+
+// Перевірка на парність
+if (week % 2 !== 0) {
+    document.getElementById("rozklad-1").innerHTML = week;
+} else {
+    document.getElementById("rozklad-2").innerHTML = week;
+}
+
+function showWeek(weekNumber) {
+    const week1 = document.getElementById('rozklad-1');
+    const week2 = document.getElementById('rozklad-2');
+
+    if (weekNumber === 1) {
+        week1.style.display = 'block';
+        week2.style.display = 'none';
+    } else if (weekNumber === 2) {
+        week1.style.display = 'none';
+        week2.style.display = 'block';
+    }
+}
+
+
