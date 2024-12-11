@@ -70,6 +70,12 @@ h4{
 .red{
     color: red;
 }
+
+.select-cell input[type="radio"] {
+    cursor: pointer;
+    margin: 5px;
+}
+
 /*<table width="200" border="1">
 <tr>
 <td rowspan="2">1</td>

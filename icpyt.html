@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Розклад ПІ-22-1-ict</title>
+    <link rel="stylesheet" href="rozklad.css">
+</head>
+<body>
+<header>
+    <div class="h1">
+        <h1>Заліки та іспити</h1>
+    </div>
+
+    <nav>
+        <ul>
+            <a href="perekladachka.html">Об'єднаний розклад</a>
+            <a href="index.html">ПІ-22-1-ict</a>
+            <a href="ki-21-1fmb.html">КІ-21-1фмб</a>
+            <a href="icpyt.html">Заліки та іспити</a>
+        </ul>
+    </nav>
+</header>
+
+<h2 id="date"></h2>
+<script src="index.js"></script>
+
+<div class="rozklad">
+    <table id="dataTable">
+        <thead>
+        <tr>
+            <th class="select-cell"></th>
+            <th>№</th>
+            <th>Час</th>
+            <th>Група</th>
+            <th>Дисципліна</th>
+            <th>Zoom</th>
+            <th>Дії</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Рядки таблиці будуть тут -->
+        </tbody>
+    </table>
+
+    <input type="text" id="timeInput" placeholder="Час">
+    <input type="text" id="groupInput" placeholder="Група">
+    <input type="text" id="subjectInput" placeholder="Дисципліна">
+    <input type="text" id="zoomInput" placeholder="Zoom">
+    <br>
+    <button onclick="addRow()">Додати рядок</button>
+    <button onclick="deleteSelectedRow()">Видалити вибраний рядок</button>
+    <button onclick="saveAllChanges()">Зберегти зміни</button>
+
+    <script src="script.js"></script>
+</div>
+</body>
+</html>
