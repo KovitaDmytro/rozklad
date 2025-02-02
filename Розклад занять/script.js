@@ -1,25 +1,28 @@
-let tableData = JSON.parse(localStorage.getItem('tableData')) || [];
-
+// Завантаження таблиці з localStorage
 function loadTable() {
     const tableBody = document.querySelector('#dataTable tbody');
     tableBody.innerHTML = ''; // Очищаємо таблицю перед заповненням
 
+    const tableData = JSON.parse(localStorage.getItem('tableData')) || [];
+
+    // Якщо немає даних в localStorage, додаємо порожні рядки
     if (tableData.length === 0) {
         for (let i = 0; i < 10; i++) {
-            tableData.push({ time: '', group: '', subject: '', zoom: '' });
+            tableData.push({ time: '', subject: '', zoom: '', group: '' });
         }
-        saveToLocalStorage();
+        localStorage.setItem('tableData', JSON.stringify(tableData));
     }
 
+    // Виводимо всі рядки з tableData
     tableData.forEach((rowData, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td class="select-cell"><input type="radio" name="selectRow" value="${index}"></td>
             <td>${index + 1}</td>
             <td contenteditable="true">${rowData.time}</td>
-            <td contenteditable="true">${rowData.group}</td>
             <td contenteditable="true">${rowData.subject}</td>
-            <td contenteditable="true">${rowData.zoom ? `<a href="${rowData.zoom}" target="_blank">${rowData.zoom}</a>` : ''}</td>
+            <td contenteditable="true">${rowData.zoom}</td>
+            <td contenteditable="true">${rowData.group}</td>
             <td>
                 <button onclick="moveRow(${index}, 'up')">↑</button>
                 <button onclick="moveRow(${index}, 'down')">↓</button>
@@ -29,106 +32,79 @@ function loadTable() {
     });
 }
 
-
+// Додати новий рядок
 function addRow() {
     const time = document.getElementById("timeInput").value;
-    const group = document.getElementById("groupInput").value;
     const subject = document.getElementById("subjectInput").value;
     const zoom = document.getElementById("zoomInput").value;
+    const group = document.getElementById("groupInput").value;
 
-    if (time && group && subject && zoom) {
-        tableData.push({ time, group, subject, zoom });
-        saveToLocalStorage();
-        loadTable();
-        clearInputs();
+    if (time && subject && zoom && group) {
+        const tableData = JSON.parse(localStorage.getItem('tableData')) || [];
+        tableData.push({ time, subject, zoom, group });
+        localStorage.setItem('tableData', JSON.stringify(tableData)); // Зберігаємо зміни в localStorage
+        loadTable(); // Завантажуємо таблицю
+        clearInputs(); // Очищаємо поля вводу
     } else {
         alert('Заповніть всі поля!');
     }
 }
 
+// Видалити вибраний рядок
 function deleteSelectedRow() {
     const selected = document.querySelector('input[name="selectRow"]:checked');
     if (selected) {
         const index = parseInt(selected.value);
-        tableData.splice(index, 1);
-        saveToLocalStorage();
-        loadTable();
+        const tableData = JSON.parse(localStorage.getItem('tableData')) || [];
+        tableData.splice(index, 1); // Видаляємо вибраний рядок
+        localStorage.setItem('tableData', JSON.stringify(tableData)); // Зберігаємо зміни в localStorage
+        loadTable(); // Завантажуємо таблицю
     } else {
         alert('Виберіть рядок для видалення!');
     }
 }
 
+// Зберігати всі зміни після редагування
 function saveAllChanges() {
     const rows = document.querySelectorAll('#dataTable tbody tr');
-    tableData = [];
+    const tableData = [];
 
     rows.forEach(row => {
         const cells = row.querySelectorAll('td');
         tableData.push({
             time: cells[2].innerText,
-            group: cells[3].innerText,
-            subject: cells[4].innerText,
-            zoom: cells[5].innerText,
+            subject: cells[3].innerText,
+            zoom: cells[4].innerText,
+            group: cells[5].innerText,
         });
     });
 
-    saveToLocalStorage();
+    localStorage.setItem('tableData', JSON.stringify(tableData)); // Збереження змін в localStorage
     alert('Зміни збережено!');
 }
 
+// Переміщення рядка
 function moveRow(index, direction) {
+    const tableData = JSON.parse(localStorage.getItem('tableData')) || [];
+
     if (direction === 'up' && index > 0) {
         [tableData[index], tableData[index - 1]] = [tableData[index - 1], tableData[index]];
     } else if (direction === 'down' && index < tableData.length - 1) {
         [tableData[index], tableData[index + 1]] = [tableData[index + 1], tableData[index]];
     }
 
-    saveToLocalStorage();
-    loadTable();
+    localStorage.setItem('tableData', JSON.stringify(tableData)); // Зберігаємо зміни в localStorage
+    loadTable(); // Завантажуємо таблицю
 }
 
-function saveToLocalStorage() {
-    localStorage.setItem('tableData', JSON.stringify(tableData));
-}
-
+// Очищення полів вводу
 function clearInputs() {
     document.getElementById("timeInput").value = '';
-    document.getElementById("groupInput").value = '';
     document.getElementById("subjectInput").value = '';
     document.getElementById("zoomInput").value = '';
+    document.getElementById("groupInput").value = '';
 }
 
+// Завантажуємо таблицю при завантаженні сторінки
 window.onload = loadTable;
 
-// Функція для експорту даних у JSON-файл
-function exportData() {
-    const tableData = JSON.parse(localStorage.getItem('tableData')) || [];
-    const dataStr = JSON.stringify(tableData, null, 2);
-    const blob = new Blob([dataStr], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'tableData.json';
-    a.click();
-    URL.revokeObjectURL(url);
-}
-
-// Функція для імпорту даних з JSON-файлу
-function importData(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            try {
-                const importedData = JSON.parse(e.target.result);
-                localStorage.setItem('tableData', JSON.stringify(importedData));
-                loadTable();
-                alert('Дані успішно імпортовано!');
-            } catch (error) {
-                alert('Помилка імпорту даних!');
-            }
-        };
-        reader.readAsText(file);
-    }
-}

@@ -51,6 +51,9 @@
     <button onclick="addRow()">Додати рядок</button>
     <button onclick="deleteSelectedRow()">Видалити вибраний рядок</button>
     <button onclick="saveAllChanges()">Зберегти зміни</button>
+    <button onclick="exportData()">Експортувати дані</button>
+    <input type="file" id="importFile" onchange="importData(event)">
+    <button onclick="importFile.click()">Імпортувати дані</button>
 
     <script src="script.js"></script>
 </div>

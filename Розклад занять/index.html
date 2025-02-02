@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Таблиця з редагуванням</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    td, th {
+      padding: 10px;
+      border: 1px solid black;
+      text-align: center;
+    }
+    button {
+      margin: 5px;
+      padding: 5px 10px;
+    }
+    input[type="radio"] {
+      margin: 0;
+    }
+    .select-cell {
+      width: 5%;
+    }
+  </style>
+</head>
+<body>
+<h1>Редагування таблиці</h1>
+<table id="dataTable">
+  <thead>
+  <tr>
+    <th class="select-cell">Вибрати</th>
+    <th>№</th>
+    <th>Час</th>
+    <th>Дисципліна</th>
+    <th>Zoom</th>
+    <th>Група</th>
+    <th>Перемістити</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- Рядки таблиці будуть тут -->
+  </tbody>
+</table>
+
+<input type="text" id="timeInput" placeholder="Час">
+<input type="text" id="subjectInput" placeholder="Дисципліна">
+<input type="text" id="zoomInput" placeholder="Zoom">
+<input type="text" id="groupInput" placeholder="Група">
+<br>
+<button onclick="addRow()">Додати рядок</button>
+<button onclick="deleteSelectedRow()">Видалити вибраний рядок</button>
+<button onclick="saveAllChanges()">Зберегти зміни</button>
+
+<script src="script.js"></script>
+</body>
+</html>
