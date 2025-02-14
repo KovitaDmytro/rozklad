@@ -20,8 +20,14 @@ h1{
     font-size: 2rem;
 }
 
+header{
+
+    position:sticky;
+    top: 0;
+}
+
 nav{
-    background-color: white; 
+    background-color: white;
 }
 
 ul{
