@@ -36,7 +36,7 @@ ul{
     margin: auto;
     width: 85%;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
 
 }
 
